@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/campus_view?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+
+jwt:
+  secret: your-256-bit-secret
+  expiration: 86400000 # 24 hours
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api 

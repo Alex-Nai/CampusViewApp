@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.45"
+        android:scaleY="0.45"
+        android:translateX="29.7"
+        android:translateY="29.7">
+        <!-- Main building -->
+        <path
+            android:fillColor="@color/logo_primary"
+            android:pathData="M54,10L94,30V90H14V30L54,10Z" />
+
+        <!-- Building details -->
+        <path
+            android:fillColor="@color/logo_secondary"
+            android:pathData="M54,10L74,20V25L54,15L34,25V20L54,10Z" />
+
+        <!-- Windows row 1 -->
+        <path
+            android:fillColor="@color/logo_secondary"
+            android:pathData="M24,40H34V50H24V40ZM42,40H52V50H42V40ZM60,40H70V50H60V40ZM78,40H88V50H78V40Z" />
+
+        <!-- Windows row 2 -->
+        <path
+            android:fillColor="@color/logo_secondary"
+            android:pathData="M24,60H34V70H24V60ZM42,60H52V70H42V60ZM60,60H70V70H60V60ZM78,60H88V70H78V60Z" />
+
+        <!-- Door -->
+        <path
+            android:fillColor="@color/logo_secondary"
+            android:pathData="M49,70H59V90H49V70Z" />
+
+        <!-- Clock circle -->
+        <path
+            android:fillColor="@color/logo_accent"
+            android:pathData="M54,35m-18,0a18,18 0,1 1,36 0a18,18 0,1 1,-36 0"
+            android:strokeWidth="2"
+            android:strokeColor="@color/white"/>
+
+        <!-- Clock hands -->
+        <path
+            android:strokeColor="@color/white"
+            android:strokeWidth="3"
+            android:strokeLineCap="round"
+            android:pathData="M54,35L54,25M54,35L65,40"/>
+
+        <!-- Steps -->
+        <path
+            android:fillColor="@color/logo_secondary"
+            android:pathData="M44,90H64V95H44V90Z" />
+    </group>
+</vector>

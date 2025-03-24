@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_resources"
+        android:icon="@drawable/ic_resources"
+        android:title="校内资源" />
+
+    <item
+        android:id="@+id/navigation_spot_recognition"
+        android:icon="@drawable/ic_camera"
+        android:title="景点识别" />
+
+    <item
+        android:id="@+id/navigation_navigation"
+        android:icon="@drawable/ic_navigation"
+        android:title="校园导航" />
+</menu> 
