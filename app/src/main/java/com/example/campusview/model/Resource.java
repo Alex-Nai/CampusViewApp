@@ -1,27 +1,44 @@
 package com.example.campusview.model;
 
-public class Resource {
-    private String id;
-    private String name;
-    private String type;
-    private String location;
-    private String description;
-    private boolean available;
+import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
-    public Resource(String id, String name, String type, String location, String description, boolean available) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.location = location;
-        this.description = description;
-        this.available = available;
+public class Resource implements Serializable {
+    @SerializedName("id")
+    private Long id;
+    
+    @SerializedName("name")
+    private String name;
+    
+    @SerializedName("description")
+    private String description;
+    
+    @SerializedName("location")
+    private String location;
+    
+    @SerializedName("type")
+    private String type;
+    
+    @SerializedName("typeId")
+    private Long typeId;
+    
+    @SerializedName("available")
+    private Boolean available;
+    
+    @SerializedName("createdAt")
+    private String createdAt;
+    
+    @SerializedName("updatedAt")
+    private String updatedAt;
+
+    public Resource() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -33,12 +50,12 @@ public class Resource {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getDescription() {
+        return description;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getLocation() {
@@ -49,19 +66,43 @@ public class Resource {
         this.location = location;
     }
 
-    public String getDescription() {
-        return description;
+    public String getType() {
+        return type;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public boolean isAvailable() {
+    public Long getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
+    }
+
+    public Boolean getAvailable() {
         return available;
     }
 
-    public void setAvailable(boolean available) {
+    public void setAvailable(Boolean available) {
         this.available = available;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 } 

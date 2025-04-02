@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.campusview.adapter.ClassroomAdapter;
 import com.example.campusview.api.ApiService;
-import com.example.campusview.config.ApiConfig;
+import com.example.campusview.api.ApiConfig;
 import com.example.campusview.model.Classroom;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -47,53 +47,41 @@ public class ClassroomFragment extends Fragment implements ClassroomAdapter.OnIt
                 .build();
         apiService = retrofit.create(ApiService.class);
 
-        // 加载教室列表
-        loadClassrooms();
+        // 加载测试数据
+        loadTestData();
 
         return view;
     }
 
-    private void loadClassrooms() {
-        apiService.getClassrooms().enqueue(new Callback<List<Classroom>>() {
-            @Override
-            public void onResponse(Call<List<Classroom>> call, Response<List<Classroom>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    classroomList.clear();
-                    classroomList.addAll(response.body());
-                    adapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getContext(), "加载教室列表失败", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Classroom>> call, Throwable t) {
-                Toast.makeText(getContext(), "网络请求失败: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void loadTestData() {
+        // 添加测试数据
+        classroomList.add(new Classroom("1", "主楼A-204", "普通教室", "主楼A区2层", 50, true));
+        classroomList.add(new Classroom("2", "主楼B-304", "多媒体教室", "主楼B区3层", 100, false));
+        classroomList.add(new Classroom("3", "中楼三-2303", "实验室", "中楼三区23层", 30, true));
+        classroomList.add(new Classroom("4", "主楼A-101", "阶梯教室", "主楼A区1层", 200, true));
+        classroomList.add(new Classroom("5", "主楼B-205", "普通教室", "主楼B区2层", 60, false));
+        classroomList.add(new Classroom("6", "中楼三-1502", "多媒体教室", "中楼三区15层", 80, true));
+        classroomList.add(new Classroom("7", "主楼A-305", "实验室", "主楼A区3层", 40, true));
+        classroomList.add(new Classroom("8", "主楼B-406", "普通教室", "主楼B区4层", 70, false));
+        classroomList.add(new Classroom("9", "中楼三-1801", "阶梯教室", "中楼三区18层", 150, true));
+        classroomList.add(new Classroom("10", "主楼A-502", "多媒体教室", "主楼A区5层", 90, true));
+        
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onBookClick(Classroom classroom) {
-        bookClassroom(classroom.getId());
+        // 模拟预约成功
+        Toast.makeText(getContext(), "预约教室 " + classroom.getName() + " 成功", Toast.LENGTH_SHORT).show();
+        classroom.setAvailable(false);
+        adapter.notifyDataSetChanged();
     }
 
-    private void bookClassroom(String classroomId) {
-        apiService.bookClassroom(classroomId).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(getContext(), "预约成功", Toast.LENGTH_SHORT).show();
-                    loadClassrooms(); // 刷新列表
-                } else {
-                    Toast.makeText(getContext(), "预约失败", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), "网络请求失败: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Override
+    public void onCancelClick(Classroom classroom) {
+        // 模拟取消预约成功
+        Toast.makeText(getContext(), "取消预约教室 " + classroom.getName() + " 成功", Toast.LENGTH_SHORT).show();
+        classroom.setAvailable(true);
+        adapter.notifyDataSetChanged();
     }
 } 

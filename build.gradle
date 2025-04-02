@@ -1,0 +1,22 @@
+buildscript {
+    ext {
+        agp_version = '8.2.2'
+        kotlin_version = '1.9.22'
+        compileSdkVersion = 34
+        minSdkVersion = 26
+        targetSdkVersion = 34
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
+        classpath 'io.freefair.gradle:lombok-plugin:6.6.1'
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+} 

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.campusview.api.ApiService;
-import com.example.campusview.config.ApiConfig;
+import com.example.campusview.api.ApiConfig;
 import com.example.campusview.model.ScenicSpotResponse;
 import com.google.android.material.button.MaterialButton;
 import okhttp3.MediaType;
@@ -25,7 +25,7 @@ import java.io.File;
 public class ScenicSpotActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imageView;
-    private MaterialButton selectButton;
+    private MaterialButton selectImageButton;
     private MaterialButton recognizeButton;
     private Uri selectedImageUri;
     private ApiService apiService;
@@ -35,9 +35,18 @@ public class ScenicSpotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scenic_spot);
 
+        // 设置Toolbar
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
         // 初始化视图
         imageView = findViewById(R.id.imageView);
-        selectButton = findViewById(R.id.selectButton);
+        selectImageButton = findViewById(R.id.selectImageButton);
         recognizeButton = findViewById(R.id.recognizeButton);
 
         // 初始化Retrofit
@@ -48,13 +57,19 @@ public class ScenicSpotActivity extends AppCompatActivity {
         apiService = retrofit.create(ApiService.class);
 
         // 设置按钮点击事件
-        selectButton.setOnClickListener(v -> selectImage());
-        recognizeButton.setOnClickListener(v -> recognizeScenicSpot());
-    }
+        selectImageButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        });
 
-    private void selectImage() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        recognizeButton.setOnClickListener(v -> {
+            if (imageView.getDrawable() == null) {
+                Toast.makeText(this, "请先选择图片", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // TODO: 实现景点识别功能
+            Toast.makeText(this, "正在识别景点...", Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.campusview.R;
 import com.example.campusview.model.Classroom;
+import com.google.android.material.button.MaterialButton;
 import java.util.List;
 
 public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.ClassroomViewHolder> {
@@ -16,6 +17,7 @@ public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.Clas
 
     public interface OnItemClickListener {
         void onBookClick(Classroom classroom);
+        void onCancelClick(Classroom classroom);
     }
 
     public ClassroomAdapter(List<Classroom> classroomList, OnItemClickListener listener) {
@@ -48,31 +50,50 @@ public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.Clas
     }
 
     static class ClassroomViewHolder extends RecyclerView.ViewHolder {
-        private TextView nameTextView;
-        private TextView typeTextView;
-        private TextView locationTextView;
-        private TextView capacityTextView;
-        private TextView statusTextView;
+        private TextView classroomName;
+        private TextView classroomType;
+        private TextView classroomLocation;
+        private TextView classroomCapacity;
+        private MaterialButton bookButton;
+        private MaterialButton cancelButton;
 
         public ClassroomViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.classroomName);
-            typeTextView = itemView.findViewById(R.id.classroomType);
-            locationTextView = itemView.findViewById(R.id.classroomLocation);
-            capacityTextView = itemView.findViewById(R.id.classroomCapacity);
-            statusTextView = itemView.findViewById(R.id.classroomStatus);
+            classroomName = itemView.findViewById(R.id.classroomName);
+            classroomType = itemView.findViewById(R.id.classroomType);
+            classroomLocation = itemView.findViewById(R.id.classroomLocation);
+            classroomCapacity = itemView.findViewById(R.id.classroomCapacity);
+            bookButton = itemView.findViewById(R.id.bookButton);
+            cancelButton = itemView.findViewById(R.id.cancelButton);
         }
 
-        public void bind(final Classroom classroom, final OnItemClickListener listener) {
-            nameTextView.setText(classroom.getName());
-            typeTextView.setText(classroom.getType());
-            locationTextView.setText(classroom.getLocation());
-            capacityTextView.setText(String.format("容量: %d人", classroom.getCapacity()));
-            statusTextView.setText(classroom.isAvailable() ? "可用" : "已占用");
+        public void bind(Classroom classroom, OnItemClickListener listener) {
+            classroomName.setText(classroom.getName());
+            classroomType.setText(classroom.getType());
+            classroomLocation.setText(classroom.getLocation());
+            classroomCapacity.setText("容量: " + classroom.getCapacity() + "人");
 
-            itemView.setOnClickListener(v -> {
+            if (classroom.isAvailable()) {
+                bookButton.setEnabled(true);
+                bookButton.setText("预约");
+                cancelButton.setEnabled(false);
+                cancelButton.setText("取消预约");
+            } else {
+                bookButton.setEnabled(false);
+                bookButton.setText("已预约");
+                cancelButton.setEnabled(true);
+                cancelButton.setText("取消预约");
+            }
+
+            bookButton.setOnClickListener(v -> {
                 if (listener != null) {
                     listener.onBookClick(classroom);
+                }
+            });
+
+            cancelButton.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onCancelClick(classroom);
                 }
             });
         }
